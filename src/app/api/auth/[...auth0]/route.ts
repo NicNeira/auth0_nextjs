@@ -1,14 +1,19 @@
 // app/api/auth/[...auth0]/route.ts
-import { handleAuth } from '@auth0/nextjs-auth0';
+import { handleAuth, handleLogin } from '@auth0/nextjs-auth0';
+import { NextResponse } from 'next/server';
 
 export const GET = handleAuth({
-  async login(req, res) {
+  async login(req) {
     try {
-      await handleLogin(req, res, {
-        returnTo: '/dashboard', // Redirige al dashboard después de iniciar sesión
+      return await handleLogin(req, {
+        returnTo: '/dashboard',
       });
-    } catch (error) {
-      res.status(error.status || 400).end(error.message);
+    } catch (error: any) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status || 400 }
+      );
     }
-  },
+    
+  }
 });

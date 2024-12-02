@@ -1,39 +1,62 @@
 "use client";
 
-// pages/dashboard.tsx
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/navigation";
+import Script from "next/script";
 
-const Page = () => {
+const Dashboard = () => {
+  const { user, isLoading } = useUser();
+  const router = useRouter();
   const vizRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js';
-    script.async = true;
-    script.onload = () => {
-      if (vizRef.current) {
-        const vizElement = document.createElement('tableau-viz');
-        vizElement.src = 'https://public.tableau.com/views/complaint_customer/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link';
-        vizElement.style.width = '100%';
-        vizElement.style.height = '802px';
-        vizRef.current.appendChild(vizElement);
-      }
-    };
-    document.body.appendChild(script);
-  }, []);
+    // Redirect if not authenticated
+    if (!isLoading && !user) {
+      router.push("/api/auth/login");
+    }
+
+    // // Tableau Viz Embedding
+    // const loadTableauScript = async () => {
+    //   if (!document.querySelector('script[src*="tableau.embedding"]')) {
+    //     const script = document.createElement("script");
+    //     script.type = "module";
+    //     script.src =
+    //       "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js";
+    //     document.head.appendChild(script);
+    //   }
+    // };
+
+    // loadTableauScript();
+  }, [user, isLoading, router]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div>
-      <h1>Dashboard de Tableau</h1>
-      <div ref={vizRef}></div>
-    </div>
+    <>
+      <h1>
+        Bienvenido <span className="font-semibold">{user?.name}</span>
+      </h1>
+      <div className="relative w-full h-full flex flex-col items-center">
+        <div className="w-full h-full relative">
+          {user && (
+            <tableau-viz
+              ref={vizRef}
+              src="https://us-east-1.online.tableau.com/t/otichile/views/Anlisisdemediciones/Home"
+              toolbar="hidden"
+              className="w-full h-[840px]"
+            />
+          )}
+        </div>
+      </div>
+      <Script
+        type="module"
+        src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"
+      ></Script>
+    </>
   );
 };
 
-export default withPageAuthRequired(Page);
-
-{/* <script type='module' src='https://us-east-1.online.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js'></script><tableau-viz id='tableau-viz' src='https://us-east-1.online.tableau.com/t/nicolasneiralopez-9cdb353c2d/views/ExecutiveDashboard/ExecutiveDashboard' width='1080' height='802' toolbar='bottom' ></tableau-viz> */ }
-
-
-
+export default Dashboard;
