@@ -1,9 +1,9 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 export const Navbar = () => {
   const { user, error } = useUser();
@@ -17,7 +17,7 @@ export const Navbar = () => {
     }
   }, [user, router]);
 
-  if (error) return console.error(error.message);
+  if (error) return console.log("error", error.message);
 
   const toggleMenu = () => {
     console.log("toggleMenu");
@@ -73,18 +73,17 @@ export const Navbar = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>
           </button>
         </div>
         <div
-          className={`items-center justify-between ${
-            isMenuOpen ? "block" : "hidden"
-          } w-full md:flex md:w-auto md:order-1`}
+          className={`items-center justify-between ${isMenuOpen ? "block" : "hidden"
+            } w-full md:flex md:w-auto md:order-1`}
           id="navbar-cta"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 gap-2">
