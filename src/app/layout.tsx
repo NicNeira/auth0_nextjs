@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Navbar } from "./components/Navbar/Navbar";
+import { Footer } from "./components/Footer/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,11 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-tr from-pink-50 to-indigo-100`}
       >
         <UserProvider>
           <Navbar />
           {children}
+          <Footer />
         </UserProvider>
       </body>
     </html>
