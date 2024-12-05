@@ -1,5 +1,3 @@
-'use client'
-
 // app/api/auth/[...auth0]/route.ts
 import { handleAuth, handleLogin } from '@auth0/nextjs-auth0';
 
