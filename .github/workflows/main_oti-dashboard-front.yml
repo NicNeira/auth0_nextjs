@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: labmsyscr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4f2f99e343dc4972bc385acafec06adf }}/oti-dashboard-front:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./.dockerfile
 
   deploy:
     runs-on: ubuntu-latest
