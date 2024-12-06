@@ -5,7 +5,7 @@ export const Footer = () => {
         <span className="text-sm text-gray-500 text-center dark:text-gray-400">
           © 2024{" "}
           <a href="https://www.microsystem.cl/" className="hover:underline">
-            Microsystem™
+            Microsystem
           </a>
           . All Rights Reserved.
         </span>
