@@ -1,15 +1,13 @@
 "use client";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function HomePage() {
-  const { user } = useUser();
 
   return (
     <>
       <div className="w-full h-screen ">
         {/* Mostrar informacion del usuario */}
-        {user ? (
+        {/* {user ? (
           <>
             <div className="flex gap-4 justify-center">
               <h3>Información del Usuario:</h3>
@@ -23,7 +21,7 @@ export default function HomePage() {
               Inicie sesión para acceder al dashboard
             </h3>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

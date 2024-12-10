@@ -1,19 +1,27 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useUser } from "@auth0/nextjs-auth0/client";
+
 import { useRouter } from "next/navigation";
 import Script from "next/script";
+import { useUser } from "@auth0/nextjs-auth0"
+
 
 const Dashboard = () => {
-  const { user, isLoading } = useUser();
+
+  console.log('aquiiiii');
+  
+
   const router = useRouter();
+  const { user, isLoading, error } = useUser()
+
   const vizRef = useRef<HTMLDivElement>(null);
 
+
   useEffect(() => {
-    // Redirige si el usuario no está autenticado
+  //   // Redirige si el usuario no está autenticado
     if (!isLoading && !user) {
-      router.push("/api/auth/login");
+      router.push("/auth/login");
     }
   }, [user, isLoading, router]);
 
@@ -116,6 +124,8 @@ const Dashboard = () => {
     return <div>Loading...</div>;
   }
 
+  console.log('dasboard user', user);
+  
   return (
     <>
       <div className="relative w-full h-full flex flex-col items-center">
@@ -131,6 +141,7 @@ const Dashboard = () => {
                 src="https://us-east-1.online.tableau.com/t/otichile/views/Anlisisdemediciones/Home"
                 toolbar="hidden"
                 className="w-full h-[840px]"
+                token={user.token}
               >
                 <viz-filter field="Isp" value={"claro_cl"}></viz-filter>
               </tableau-viz>

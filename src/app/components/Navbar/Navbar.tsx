@@ -1,23 +1,18 @@
-"use client";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { auth0 } from "@/lib/auth0"
 
-export const Navbar = () => {
-  const { user } = useUser();
-  const router = useRouter();
+export const Navbar = async () => {
 
 
-  useEffect(() => {
-    if (user) {
-      router.push("/dashboard");
-    }
-  }, [user, router]);
+  const session = await auth0.getSession()
+  // console.log('session', session);
 
+  auth0.signInReturnToPath
+  
+  
 
   return (
     <nav className="bg-transparent">
@@ -34,8 +29,8 @@ export const Navbar = () => {
         <div
           className="flex items-center justify-end p-2 md:p-0 rtl:space-x-reverse"
         >
-          {!user ? (
-            <a href="/api/auth/login">
+          {!session ? (
+            <a href="/auth/login?returnTo=/dashboard">
               <Button
                 className="bg-yellow-400 text-[#0B4582] font-semibold hover:bg-yellow-500"
               >
@@ -44,7 +39,7 @@ export const Navbar = () => {
               </Button>
             </a>
           ) : (
-            <a href="/api/auth/logout">
+            <a href="/auth/logout">
               <Button
                 className="bg-yellow-400 text-[#0B4582] font-semibold hover:bg-yellow-500"
               >

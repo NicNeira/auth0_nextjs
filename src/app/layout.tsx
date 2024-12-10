@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Footer } from "./components/Footer/Footer";
 
@@ -32,11 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-tr from-pink-50 to-indigo-100`}
       >
-        <UserProvider>
           <Navbar />
           {children}
           <Footer />
-        </UserProvider>
       </body>
     </html>
   );
