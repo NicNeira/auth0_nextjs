@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { auth0 } from "@/lib/auth0"
+import { LogoutButton } from "./LogoutButton";
 
 export const Navbar = async () => {
 
@@ -10,8 +11,6 @@ export const Navbar = async () => {
   const session = await auth0.getSession()
   // console.log('session', session);
 
-  auth0.signInReturnToPath
-  
   
 
   return (
@@ -39,14 +38,15 @@ export const Navbar = async () => {
               </Button>
             </a>
           ) : (
-            <a href="/auth/logout">
-              <Button
-                className="bg-yellow-400 text-[#0B4582] font-semibold hover:bg-yellow-500"
-              >
-                Cerrar Sesión
+            // <a href="/auth/logout">
+            //   <Button
+            //     className="bg-yellow-400 text-[#0B4582] font-semibold hover:bg-yellow-500"
+            //   >
+            //     Cerrar Sesión
 
-              </Button>
-            </a>
+            //   </Button>
+            // </a>
+            <LogoutButton />
           )}
         </div>
       </div>
