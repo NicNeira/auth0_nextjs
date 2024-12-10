@@ -124,10 +124,6 @@ const Dashboard = () => {
     }
   }, [vizRef]);
 
-  if (isLoading) {
-    return <div className="flex gap-4 justify-center">Loading...</div>;
-  }
-
   // console.log('dasboard user', user);
   
   return (
