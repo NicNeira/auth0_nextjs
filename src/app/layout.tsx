@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-tr from-pink-50 to-indigo-100 flex flex-col`}
       >
-          <Navbar />
+          {/* <Navbar /> */}
           {children}
           <Footer />
       </body>
