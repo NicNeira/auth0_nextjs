@@ -125,6 +125,8 @@ const Dashboard = () => {
   }, [vizRef]);
 
   // console.log('dasboard user', user);
+  console.log('process.env', process.env.TABLEAU_URL);
+  
   
   return (
     <>
@@ -139,7 +141,7 @@ const Dashboard = () => {
               </div>
               <tableau-viz
                 key={user.email}
-                src="https://us-east-1.online.tableau.com/t/otichile/views/Anlisisdemediciones/Home"
+                src={process.env.TABLEAU_URL}
                 toolbar="hidden"
                 className="w-full h-[840px]"
               >
